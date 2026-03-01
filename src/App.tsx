@@ -215,7 +215,12 @@ function App() {
                                 Wyślij pilne powiadomienie do wszystkich domowników.
                             </p>
                             <button
-                                onClick={() => notifyFamily({ type: 'alert', title: 'Ręczny Alert', message: 'Ktoś potrzebuje Twojej uwagi!' })}
+                                onClick={async () => {
+                                    const { error } = await supabase.from('alerts').insert([
+                                        { type: 'alert', title: 'Ręczny Alert 🚨', message: 'Ktoś z rodziny potrzebuje Twojej uwagi!' }
+                                    ]);
+                                    if (error) alert('Błąd wysyłania: ' + error.message);
+                                }}
                                 className="w-full py-3 glass bg-rose-500/10 hover:bg-rose-500/20 rounded-2xl text-xs font-bold uppercase tracking-widest text-rose-300 border border-rose-500/30 transition-all"
                             >
                                 Wyślij Pilny Alert 🚨

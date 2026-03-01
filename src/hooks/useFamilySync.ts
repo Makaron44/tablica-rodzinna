@@ -41,6 +41,17 @@ export const useFamilySync = () => {
                     });
                 }
             )
+            .on(
+                'postgres_changes',
+                { event: 'INSERT', schema: 'public', table: 'alerts' },
+                (payload) => {
+                    notifyFamily({
+                        type: payload.new.type,
+                        title: payload.new.title,
+                        message: payload.new.message
+                    });
+                }
+            )
             .subscribe();
 
         return () => {
