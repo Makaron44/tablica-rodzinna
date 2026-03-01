@@ -169,21 +169,21 @@ export const TaskList: React.FC = () => {
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center justify-between mt-3">
-                                        <div className="flex items-center gap-2">
-                                            <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-bold ${getPersonStyles(task.assigned_to).color}`}>
+                                    <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-t border-white/5 pt-3">
+                                        <div className="flex items-center">
+                                            <div className={`flex items-center gap-1.5 px-3 py-1 rounded-xl border text-[10px] font-bold ${getPersonStyles(task.assigned_to).color}`}>
                                                 <span>{getPersonStyles(task.assigned_to).emoji}</span>
                                                 <span>{task.assigned_to}</span>
                                             </div>
                                         </div>
 
-                                        <div className="flex items-center gap-2">
-                                            <div className="flex -space-x-1">
+                                        <div className="flex flex-wrap items-center gap-3">
+                                            <div className="flex -space-x-1.5">
                                                 {['👍', '❤️', '👏', '💪'].map(emoji => (
                                                     <button
                                                         key={emoji}
                                                         onClick={() => addReaction(task.id, emoji)}
-                                                        className="w-7 h-7 flex items-center justify-center rounded-full glass hover:bg-white/20 transition-all text-sm border border-white/5 active:scale-90"
+                                                        className="w-8 h-8 flex items-center justify-center rounded-full glass hover:bg-white/20 transition-all text-sm border border-white/10 active:scale-95 shadow-lg"
                                                     >
                                                         {emoji}
                                                     </button>
@@ -191,11 +191,17 @@ export const TaskList: React.FC = () => {
                                             </div>
 
                                             {task.reactions && task.reactions.length > 0 && (
-                                                <div className="flex gap-1 ml-1">
+                                                <div className="flex flex-wrap gap-1.5">
                                                     {Array.from(new Set(task.reactions.map(r => r.emoji))).map(emoji => (
-                                                        <span key={emoji} className="text-[10px] bg-white/5 px-2 py-0.5 rounded-lg border border-white/10 flex items-center gap-1">
-                                                            {emoji} <span className="text-slate-400 font-bold">{task.reactions?.filter(r => r.emoji === emoji).length}</span>
-                                                        </span>
+                                                        <motion.span
+                                                            initial={{ scale: 0 }}
+                                                            animate={{ scale: 1 }}
+                                                            key={emoji}
+                                                            className="text-[10px] bg-indigo-500/10 px-2 py-1 rounded-lg border border-indigo-500/20 flex items-center gap-1.5 shadow-sm"
+                                                        >
+                                                            <span className="filter drop-shadow-sm">{emoji}</span>
+                                                            <span className="text-indigo-300 font-bold">{task.reactions?.filter(r => r.emoji === emoji).length}</span>
+                                                        </motion.span>
                                                     ))}
                                                 </div>
                                             )}
