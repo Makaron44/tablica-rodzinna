@@ -17,6 +17,17 @@
   --error: #ef4444;
   --glass-bg: rgba(255, 255, 255, 0.05);
   --glass-border: rgba(255, 255, 255, 0.1);
+  --body-bg: radial-gradient(circle at top right, #1e1b4b, #0f172a, #020617);
+}
+
+.light-mode {
+  --background: #f1f5f9;
+  --surface: rgba(255, 255, 255, 0.8);
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --glass-border: rgba(0, 0, 0, 0.05);
+  --body-bg: radial-gradient(circle at top right, #e2e8f0, #f1f5f9, #f8fafc);
 }
 
 * {
@@ -28,9 +39,10 @@
 
 body {
   font-family: 'Outfit', sans-serif;
-  background: radial-gradient(circle at top right, #1e1b4b, #0f172a, #020617);
+  background: var(--body-bg);
   color: var(--text);
   min-height: 100vh;
+  transition: background 0.5s ease, color 0.5s ease;
   overflow-x: hidden;
   line-height: 1.5;
 }
@@ -93,6 +105,25 @@ h3 {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
+}
+
+/* Sticky Note Font */
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
+
+.sticky-font {
+  font-family: 'Gochi Hand', cursive;
+}
+
+.note-tilt-1 {
+  transform: rotate(-2deg);
+}
+
+.note-tilt-2 {
+  transform: rotate(1.5deg);
+}
+
+.note-tilt-3 {
+  transform: rotate(-1deg);
 }
 
 /* PWA Essentials */

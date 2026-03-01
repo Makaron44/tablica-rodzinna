@@ -52,6 +52,17 @@ export const useFamilySync = () => {
                     });
                 }
             )
+            .on(
+                'postgres_changes',
+                { event: 'INSERT', schema: 'public', table: 'sticky_notes' },
+                (payload) => {
+                    notifyFamily({
+                        type: 'info',
+                        title: 'Nowa karteczka! 📝',
+                        message: `${payload.new.user_name} zostawił(a) wiadomość.`
+                    });
+                }
+            )
             .subscribe();
 
         return () => {
