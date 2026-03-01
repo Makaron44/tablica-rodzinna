@@ -165,30 +165,30 @@ export const FamilyCalendar: React.FC = () => {
                     key={selectedDate.toString()}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mt-8 pt-6 border-t border-white/10"
+                    className="mt-8 pt-6 border-t border-[var(--glass-border)]"
                 >
-                    <div className="flex justify-between items-center mb-4">
-                        <h3 className="font-semibold text-slate-200">
+                    <div className="flex justify-between items-center mb-4 text-[var(--text)]">
+                        <h3 className="font-bold">
                             {format(selectedDate, 'd MMMM', { locale: pl })}
                         </h3>
                         <button
                             onClick={() => setIsAddModalOpen(true)}
-                            className="flex items-center gap-1 text-[10px] font-bold text-indigo-300 bg-indigo-500/10 px-3 py-1.5 rounded-lg border border-indigo-500/20 hover:bg-indigo-500/20"
+                            className="flex items-center gap-1.5 text-[10px] font-black text-white bg-indigo-500 px-4 py-2 rounded-xl shadow-lg shadow-indigo-500/20 hover:bg-indigo-600 transition-all active:scale-95"
                         >
-                            <PlusCircle className="w-3 h-3" />
+                            <PlusCircle className="w-3.5 h-3.5" />
                             DODAJ
                         </button>
                     </div>
 
                     <div className="space-y-3">
                         {events.filter(e => isSameDay(parseISO(e.start_time), selectedDate)).length === 0 ? (
-                            <p className="text-sm text-slate-500 italic py-4 text-center">Brak zaplanowanych wydarzeń.</p>
+                            <p className="text-sm text-[var(--text)] opacity-40 italic py-8 text-center bg-[var(--input-bg)] rounded-2xl border border-dashed border-[var(--input-border)]">Brak zaplanowanych wydarzeń.</p>
                         ) : (
                             events.filter(e => isSameDay(parseISO(e.start_time), selectedDate)).map((event) => (
-                                <div key={event.id} className="group flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                                    <div className="flex items-center gap-3">
-                                        <div className={`w-1 h-6 rounded-full ${categoryColors[event.category]}`} />
-                                        <span className="text-sm font-medium text-slate-200">{event.title}</span>
+                                <div key={event.id} className="group flex items-center justify-between p-4 rounded-2xl bg-[var(--input-bg)] border border-[var(--input-border)] hover:border-indigo-500/30 transition-all shadow-sm">
+                                    <div className="flex items-center gap-4">
+                                        <div className={`w-1.5 h-8 rounded-full ${categoryColors[event.category]} shadow-lg shadow-${categoryColors[event.category].split('-')[1]}-500/20`} />
+                                        <span className="text-sm font-bold text-[var(--text)]">{event.title}</span>
                                     </div>
                                     <button
                                         onClick={() => deleteEvent(event.id)}

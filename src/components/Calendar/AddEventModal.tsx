@@ -55,10 +55,10 @@ export const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, o
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
                         className="glass w-full max-w-md overflow-hidden"
                     >
-                        <div className="p-6 border-b border-white/10 flex justify-between items-center bg-white/5">
+                        <div className="p-6 border-b border-[var(--glass-border)] flex justify-between items-center bg-[var(--input-bg)]">
                             <div>
-                                <h3 className="text-xl font-bold">Nowe Wydarzenie</h3>
-                                <p className="text-xs text-indigo-300 mt-1 uppercase tracking-widest font-bold">
+                                <h3 className="text-xl font-bold text-[var(--text)]">Nowe Wydarzenie</h3>
+                                <p className="text-xs text-indigo-500 mt-1 uppercase tracking-widest font-black">
                                     {format(selectedDate, 'd MMMM yyyy')}
                                 </p>
                             </div>
@@ -69,19 +69,19 @@ export const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, o
 
                         <form onSubmit={handleSubmit} className="p-6 space-y-5">
                             <div>
-                                <label className="block text-xs font-bold text-indigo-300 uppercase tracking-widest mb-2">Nazwa wydarzenia</label>
+                                <label className="block text-[10px] font-black text-indigo-500 uppercase tracking-widest mb-2">Nazwa wydarzenia</label>
                                 <input
                                     autoFocus
                                     type="text"
                                     value={title}
                                     onChange={(e) => setTitle(e.target.value)}
                                     placeholder="Np. Kino, Urodziny..."
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-indigo-500/50 transition-colors"
+                                    className="w-full bg-[var(--input-bg)] border border-[var(--input-border)] rounded-xl px-4 py-3 text-[var(--text)] placeholder:text-slate-400 focus:outline-none focus:border-indigo-500/50 transition-colors"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Kategoria</label>
+                                <label className="block text-[10px] font-black text-[var(--text)] opacity-40 uppercase tracking-widest mb-2">Kategoria</label>
                                 <div className="grid grid-cols-2 gap-2">
                                     {[
                                         { id: 'family', label: 'Rodzina', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' },
@@ -93,7 +93,9 @@ export const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, o
                                             key={cat.id}
                                             type="button"
                                             onClick={() => setCategory(cat.id as any)}
-                                            className={`px-4 py-2.5 rounded-xl border text-sm font-medium transition-all ${category === cat.id ? cat.color + ' ring-2 ring-white/10' : 'bg-white/5 border-white/10 text-slate-400 opacity-60'
+                                            className={`px-4 py-2.5 rounded-xl border text-sm font-bold transition-all ${category === cat.id
+                                                ? cat.color + ' ring-4 ring-indigo-500/10'
+                                                : 'bg-[var(--input-bg)] border-[var(--input-border)] text-[var(--text)] opacity-40 hover:opacity-100'
                                                 }`}
                                         >
                                             {cat.label}
