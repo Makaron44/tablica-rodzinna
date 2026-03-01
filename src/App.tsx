@@ -299,18 +299,20 @@ function App() {
             </main>
 
             {/* Navigation Bar */}
-            <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md glass p-2 flex justify-around items-center z-50 shadow-2xl backdrop-blur-xl border border-white/10">
+            <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[95%] sm:w-[90%] max-w-lg glass p-1 sm:p-2 flex justify-between items-center z-50 shadow-2xl backdrop-blur-xl border border-white/10">
                 {tabs.map(({ id, icon: Icon, label }) => {
                     const isActive = activeTab === id;
                     return (
                         <button
                             key={id}
                             onClick={() => setActiveTab(id)}
-                            className="relative flex flex-col items-center gap-1 p-3 rounded-2xl transition-all duration-300"
+                            className="relative flex-1 flex flex-col items-center gap-1 py-3 px-1 rounded-2xl transition-all duration-300 min-w-0"
                             style={{ color: isActive ? 'var(--nav-active)' : 'var(--nav-inactive)' }}
                         >
-                            <Icon className={`w-6 h-6 ${isActive ? 'scale-110' : ''}`} />
-                            <span className="text-[10px] font-medium uppercase tracking-widest">{label}</span>
+                            <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${isActive ? 'scale-110' : ''}`} />
+                            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-tight sm:tracking-widest truncate w-full text-center">
+                                {label}
+                            </span>
                             {isActive && (
                                 <motion.div
                                     layoutId="activeTabIndicator"
