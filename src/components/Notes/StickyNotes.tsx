@@ -25,6 +25,7 @@ export const StickyNotes: React.FC = () => {
     const [newContent, setNewContent] = useState('');
     const [selectedColor, setSelectedColor] = useState(COLORS[0].class);
     const [author, setAuthor] = useState('Anonim');
+    const [selectedNote, setSelectedNote] = useState<Note | null>(null);
 
     const fetchNotes = async () => {
         const { data, error } = await supabase
@@ -60,9 +61,11 @@ export const StickyNotes: React.FC = () => {
         }
     };
 
-    const deleteNote = async (id: string) => {
+    const deleteNote = async (id: string, e: React.MouseEvent) => {
+        e.stopPropagation();
         const { error } = await supabase.from('sticky_notes').delete().eq('id', id);
         if (error) alert('Błąd usuwania: ' + error.message);
+        if (selectedNote?.id === id) setSelectedNote(null);
     };
 
     return (
@@ -99,7 +102,7 @@ export const StickyNotes: React.FC = () => {
                                 value={newContent}
                                 onChange={(e) => setNewContent(e.target.value)}
                                 placeholder="Napisz coś miłego..."
-                                className="w-full bg-transparent border-none focus:ring-0 text-slate-100 placeholder:text-slate-600 sticky-font text-2xl min-h-[120px] resize-none"
+                                className="w-full bg-transparent border-none focus:ring-0 text-[var(--text)] placeholder:text-slate-600 sticky-font text-2xl min-h-[120px] resize-none"
                                 autoFocus
                             />
 
@@ -146,11 +149,12 @@ export const StickyNotes: React.FC = () => {
                             animate={{ opacity: 1, scale: 1, rotate: idx % 2 === 0 ? -2 : 2 }}
                             exit={{ opacity: 0, scale: 0.5, rotate: 0 }}
                             whileHover={{ scale: 1.05, rotate: 0, zIndex: 10 }}
-                            className={`${note.color} p-4 pb-2 rounded-sm shadow-xl flex flex-col justify-between min-h-[160px] border relative group`}
+                            onClick={() => setSelectedNote(note)}
+                            className={`${note.color} p-4 pb-2 rounded-sm shadow-xl flex flex-col justify-between min-h-[160px] border relative group cursor-pointer`}
                         >
                             <button
-                                onClick={() => deleteNote(note.id)}
-                                className="absolute top-2 right-2 p-1.5 bg-black/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/10"
+                                onClick={(e) => deleteNote(note.id, e)}
+                                className="absolute top-2 right-2 p-1.5 bg-black/5 rounded-lg opacity-group-hover:opacity-100 transition-opacity hover:bg-black/10"
                             >
                                 <Trash2 className="w-3.5 h-3.5 text-black/40" />
                             </button>
@@ -170,6 +174,55 @@ export const StickyNotes: React.FC = () => {
                     ))}
                 </AnimatePresence>
             </div>
+
+            {/* Note Detail Modal */}
+            <AnimatePresence>
+                {selectedNote && (
+                    <div className="fixed inset-0 z-[200] flex items-center justify-center p-6">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setSelectedNote(null)}
+                            className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            className={`${selectedNote.color} w-full max-w-sm p-8 rounded-sm shadow-2xl relative border z-10 flex flex-col min-h-[300px]`}
+                        >
+                            <button
+                                onClick={() => setSelectedNote(null)}
+                                className="absolute -top-12 right-0 p-2 text-white/60 hover:text-white flex items-center gap-2"
+                            >
+                                <span className="text-xs font-bold uppercase tracking-widest">Zamknij</span>
+                                <Plus className="w-6 h-6 rotate-45" />
+                            </button>
+
+                            <p className="sticky-font text-3xl leading-relaxed whitespace-pre-wrap flex-1">
+                                {selectedNote.content}
+                            </p>
+
+                            <div className="mt-8 pt-4 border-t border-black/10 flex justify-between items-center">
+                                <div className="flex items-center gap-2">
+                                    <div className="p-2 bg-black/5 rounded-full">
+                                        <User className="w-5 h-5 text-black/60" />
+                                    </div>
+                                    <div>
+                                        <p className="text-[10px] uppercase tracking-widest font-black opacity-40 leading-none">Autor</p>
+                                        <p className="text-sm font-bold uppercase tracking-wider">{selectedNote.user_name}</p>
+                                    </div>
+                                </div>
+                                <div className="text-right">
+                                    <p className="text-[10px] uppercase tracking-widest font-black opacity-40 leading-none">Data</p>
+                                    <p className="text-[10px] font-bold">{new Date(selectedNote.created_at).toLocaleDateString()}</p>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
 
             {notes.length === 0 && !isAdding && (
                 <div className="glass p-12 text-center text-slate-500 italic">

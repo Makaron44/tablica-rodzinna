@@ -119,7 +119,7 @@ function App() {
     ];
 
     return (
-        <div className="flex flex-col min-h-screen text-white bg-slate-900 overflow-hidden font-sans">
+        <div className="flex flex-col min-h-screen text-[var(--text)] bg-[var(--background)] overflow-hidden font-sans transition-colors duration-300">
             <NotificationCenter />
 
             {/* Header */}
@@ -138,7 +138,7 @@ function App() {
                                 <span className="text-xs font-bold text-orange-200">12°C</span>
                             </div>
                         </div>
-                        <div className="flex items-center gap-1 mt-2 text-slate-500">
+                        <div className="flex items-center gap-1 mt-2 text-[var(--text)] opacity-40">
                             <MapPin className="w-3 h-3" />
                             <span className="text-[10px] uppercase tracking-widest font-bold">Dom, Rodzinka</span>
                         </div>
@@ -227,7 +227,7 @@ function App() {
                             className="mt-4 space-y-4 px-2"
                         >
                             <div className="flex justify-between items-center mb-4">
-                                <h2 className="text-xl font-bold">Ostatnia Aktywność</h2>
+                                <h2 className="text-xl font-bold text-[var(--text)]">Ostatnia Aktywność</h2>
                                 {activities.length > 0 && (
                                     <button
                                         onClick={clearActivity}
@@ -255,13 +255,13 @@ function App() {
                                         <div className={`p-2 rounded-xl bg-white/5 ${item.color}`}>
                                             <item.icon className="w-5 h-5" />
                                         </div>
-                                        <div className="flex-1 min-w-0">
+                                        <div className="flex-1 min-w-0 text-[var(--text)]">
                                             <p className="text-sm truncate">
-                                                <span className="font-bold text-slate-200">{item.user}</span>{' '}
-                                                <span className="text-slate-400">{item.action}</span>{' '}
-                                                <span className="font-medium text-indigo-300">{item.target}</span>
+                                                <span className="font-bold">{item.user}</span>{' '}
+                                                <span className="opacity-70">{item.action}</span>{' '}
+                                                <span className="font-medium text-indigo-400">{item.target}</span>
                                             </p>
-                                            <p className="text-[10px] text-slate-500 mt-1 uppercase tracking-wider">{item.time}</p>
+                                            <p className="text-[10px] text-[var(--text)] opacity-40 mt-1 uppercase tracking-wider">{item.time}</p>
                                         </div>
                                     </motion.div>
                                 ))
@@ -306,10 +306,8 @@ function App() {
                         <button
                             key={id}
                             onClick={() => setActiveTab(id)}
-                            className={`relative flex flex-col items-center gap-1 p-3 rounded-2xl transition-all duration-300 ${isActive
-                                ? 'text-indigo-300'
-                                : 'text-slate-500 hover:text-slate-300'
-                                }`}
+                            className="relative flex flex-col items-center gap-1 p-3 rounded-2xl transition-all duration-300"
+                            style={{ color: isActive ? 'var(--nav-active)' : 'var(--nav-inactive)' }}
                         >
                             <Icon className={`w-6 h-6 ${isActive ? 'scale-110' : ''}`} />
                             <span className="text-[10px] font-medium uppercase tracking-widest">{label}</span>
