@@ -6,13 +6,15 @@ Nowoczesna, interaktywna tablica dla całej rodziny. Zarządzaj wspólnym kalend
 
 ## ✨ Funkcje
 
-- 📅 **Interaktywny Kalendarz**: Planuj wydarzenia rodzinne z podziałem na kategorie (Zdrowie, Dom, Rozrywka).
-- ✅ **Lista Zadań (To-Do)**: Przydzielaj zadania domownikom (Agusia, Maciej, Patusia) i śledź postępy z efektami wizualnymi (konfetti!).
-- ❤️ **Reakcje i Social**: Dodawaj emotki 👍, ❤️, 👏, 💪 pod zadaniami, aby motywować innych.
-- 🕒 **Ostatnia Aktywność**: Śledź co dzieje się w domu na bieżąco z możliwością czyszczenia widoku.
+- 📅 **Interaktywny Kalendarz**: Planuj wydarzenia rodzinne z podziałem na kategorie.
+- ✅ **Lista Zadań (To-Do)**: Przydzielaj zadania domownikom i śledź postępy (z efektami konfetti!).
+- 📝 **Rodzinne Karteczki**: Zostawiaj wiadomości bliskim na kolorowych karteczkach z widokiem przybliżonym (Zoom).
+- ❤️ **Reakcje i Social**: Dodawaj emotki 👍, ❤️, 👏 pod zadaniami, aby motywować innych.
+- 🌓 **Tryb Jasny i Ciemny**: Wybieraj między stylem "Deep Space" a nowym "Light Glass".
+- 🕒 **Ostatnia Aktywność**: Śledź co dzieje się w domu na bieżąco.
 - 🔔 **System Powiadomień**: Otrzymuj informacje o nowych zadaniach i pilnych alertach.
-- 📱 **PWA (Progressive Web App)**: Zainstaluj aplikację na telefonie i korzystaj z niej jak z natywnego programu.
-- ⚡ **Real-time**: Dzięki integracji z Supabase, wszystkie zmiany są widoczne u każdego domownika natychmiast, bez odświeżania strony.
+- ⚡ **Real-time & Security**: Pełna synchronizacja Supabase z aktywnymi regułami bezpieczeństwa (RLS).
+- 📱 **PWA (Progressive Web App)**: Zainstaluj aplikację na ekranie głównym telefonu.
 
 ## 🛠️ Technologie
 
